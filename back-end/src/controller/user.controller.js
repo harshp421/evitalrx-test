@@ -107,15 +107,17 @@ export const activateAccount = catchAsyncError(async (req, res, next) => {
 
 export const login = catchAsyncError(async (req, res, next) => {
     try {
+        
         const { email, password } = req.body;
         if (!email || !password) {
             return next(new ErrorHandler('Please enter email and password', 400));
         }
         const user = await userModel.findOne({ email }).select('+password');
         if (!user) {
-            return next(new ErrorHandler('Invalid email or password', 400));
+            return next(new ErrorHandler('Invalid email or password or please activate you account', 400));
         }
         const isPasswordMatched = await user.comparePassword(password);
+       
         if (!isPasswordMatched) {
             return next(new ErrorHandler('Invalid email or password', 400));
         }
@@ -224,8 +226,7 @@ export const forgotPassword = catchAsyncError(async (req, res, next) => {
 });
 
 
-// Reset password   =>  /api/v1/password/reset/:token
-// Reset Password => /api/v1/password/reset/:token
+
 export const resetPassword = catchAsyncError(async (req, res, next) => {
     // Hash URL token
     const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
@@ -278,17 +279,16 @@ export const logoutUser = catchAsyncError(async (req, res, next) => {
 
 
 
-//update access token => /api/v1/refresh
 export const updateAccessToken = catchAsyncError(async (req, res, next) => {
     try {
 
         const refresh_token = req.cookies.refresh_token;
         if (!refresh_token) {
-            return next(new ErrorHandler('Please login to access this resource', 401));
+            return next(new ErrorHandler('Your Session is expired', 401));
         }
         const decoded = jwt.verify(refresh_token, process.env.REFRESH_TOKEN);
         if (!decoded) {
-            return next(new ErrorHandler('Please login to access this resource', 401));
+            return next(new ErrorHandler('Your Session is expired', 401));
         }
 
         const session = await userModel.findById(decoded.id);

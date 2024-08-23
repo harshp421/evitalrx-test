@@ -9,12 +9,8 @@ const axiosInstance = axios.create({
   },
 });
 
-// Optionally, you can add interceptors for request and response
 axiosInstance.interceptors.request.use(
   config => {
-    // Modify request config before sending the request
-    // For example, add an authorization token
-    // config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
   error => {
@@ -25,12 +21,17 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   response => {
-    // Handle response data
+     console.log(response,"response");
     return response;
   },
   error => {
     // Handle response error
-    return Promise.reject(error);
+    if (error.response && error.response.data.message === "Your Session is expired") {
+      // Clear localStorage and redirect to login page
+      localStorage.removeItem('user');
+      window.location.href = '/login';
+    }
+      return Promise.reject(error);
   }
 );
 

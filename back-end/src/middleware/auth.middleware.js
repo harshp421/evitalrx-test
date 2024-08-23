@@ -1,3 +1,4 @@
+import { updateAccessToken } from "../controller/user.controller.js";
 import userModel from "../models/user.model.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import { catchAsyncError } from "./catchAsyncError.js";
@@ -11,7 +12,8 @@ export const isAuthenticated= catchAsyncError(async(req,res,next)=>{
     const decoded=jwt.verify(access_token,process.env.JWT_SECRET);
 
     if(!decoded){
-        return next(new ErrorHandler('Please login to access this resource',401));
+        updateAccessToken(req,res,next);
+        // return next(new ErrorHandler('Please login to access this resource',401));
     }
     const user=await userModel.findById(decoded.id);
     if(!user){
