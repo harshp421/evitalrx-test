@@ -13,7 +13,10 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { userService } from "@/services/api/user"
+import { useState } from "react"
+import { AxiosError } from "axios"
 
 const formSchema = z.object({
     email: z
@@ -25,6 +28,9 @@ const formSchema = z.object({
 })
 
 const Login=()=> {
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
    // 1. Define your form.
    const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -34,11 +40,30 @@ const Login=()=> {
     },
   })
 
+  const handleLogin = async (values: z.infer<typeof formSchema>) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await userService.login(values);
+      // Handle successful login (e.g., navigate to dashboard, save token, etc.)
+      console.log("Login successful:", response.data);
+      navigate("/dashboard");
+    } catch (err:AxiosError | any) {
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Invalid email or password. Please try again.");
+      }
+      //setError("Invalid email or password. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
    // 2. Define a submit handler.
    function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values)
+    handleLogin(values)
   }
 
   return (
@@ -74,7 +99,13 @@ const Login=()=> {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <p className="text-sm text-gray-600">
+  Forgot your password? <Link to={'/forgot-password'} className="text-blue-500 underline">Click here to reset it</Link>.
+</p>
+{error && <p>{error}</p>}
+        <Button type="submit" disabled={loading}>
+        {loading ? "Submitting..." : "Submit"}
+        </Button>
       </form>
     </Form>
   )

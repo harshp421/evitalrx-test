@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const PublicRoute: React.FC = () => {
-  const isAuthenticated = !!localStorage.getItem('authToken'); // Replace with actual auth logic
-
-  return isAuthenticated ? <Navigate to="/dashboard" /> : <Outlet />;
+  return Cookies.get("access_token") ? <Navigate to="/dashboard" /> : <Outlet />;
 };
 
 export default PublicRoute;

@@ -9,6 +9,7 @@ import PrivateRoute from './PrivetRoutes';
 import Dashboard from '../modules/dashboard/Dashboard';
 import Profile from '../modules/Profile/Profile';
 import AuthLayout from '@/layout/AuthLayout';
+import ResetPassword from '@/modules/auth/ResetPassword';
 
 
 
@@ -22,7 +23,8 @@ const AppRoutes: React.FC = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/otp" element={<OTP />} />
-        <Route path="/forget-password" element={<ForgetPassword />} />
+        <Route path="/forgot-password" element={<ForgetPassword />} />
+        <Route path='/reset-password/:reset-token' element={<ResetPassword/>} />
         </Route>
       </Route>
 

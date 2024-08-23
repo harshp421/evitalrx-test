@@ -196,7 +196,7 @@ export const forgotPassword = catchAsyncError(async (req, res, next) => {
   
     
     // Create reset password URL
-    const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/user/password/reset/${resetToken}`;
+    const resetUrl = `${req.protocol}://${req.get('host')}/forget-password/${resetToken}`;
   //  console.log(resetUrl, "user");
     const data = { username: user.username, resetUrl: resetUrl };
     try {
