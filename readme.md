@@ -98,7 +98,7 @@ This project is a full-stack web application designed to demonstrate core compet
 
 3. **Run the Frontend**:
    ```bash
-   npm start
+   npm run dev 
    ```
 
 ## API Documentation
