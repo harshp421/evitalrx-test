@@ -18,10 +18,10 @@ userRouter.put('/update-profile', isAuthenticated,updateProfile );
 userRouter.get('/refresh_token',updateAccessToken);
 
 // Forget Password
-userRouter.post('/password/forgot', forgotPassword);
+userRouter.post('/forgot-password', forgotPassword);
 
 // Reset Password
-userRouter.put('/password/reset/:token', resetPassword);
+userRouter.put('/reset-password/:token', resetPassword);
 
 userRouter.get('/logout',isAuthenticated, logoutUser);
 

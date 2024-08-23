@@ -9,7 +9,6 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import {
@@ -22,6 +21,7 @@ import { useNavigate } from "react-router-dom"
 import { userService } from "@/services/api/user"
 import { AxiosError } from "axios"
 import Cookies from "js-cookie"
+import { toast } from "@/components/ui/use-toast"
 
 
 const FormSchema = z.object({
@@ -50,6 +50,9 @@ const OTP=()=> {
     try {
       const response = await userService.verifyOtp(values);
       console.log("OTP verified:", response.data);
+      toast({
+        title: response.data.message || "OTP verified",
+      })
       navigate("/login");
     } catch (err:AxiosError | any) {
       if (err.response && err.response.data && err.response.data.message) {
@@ -95,7 +98,7 @@ const OTP=()=> {
                 </InputOTP>
               </FormControl>
               <FormDescription>
-                Please enter the one-time password sent to your phone.
+                Please enter the one-time password sent to your Email.
               </FormDescription>
               <FormMessage />
             </FormItem>

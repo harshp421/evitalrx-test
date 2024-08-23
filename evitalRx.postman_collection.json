@@ -1,0 +1,143 @@
+{
+	"info": {
+		"_postman_id": "7dd478b5-df69-4ff0-9907-143dce312eaa",
+		"name": "evitalRx",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "21407126",
+		"_collection_link": "https://galactic-comet-839856.postman.co/workspace/evitalRx~cc1981ed-8d35-4417-8741-bc7085000743/collection/21407126-7dd478b5-df69-4ff0-9907-143dce312eaa?action=share&source=collection_link&creator=21407126"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "register an user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"test1\",\n  \"email\": \"yimal71600@daypey.com\",\n  \"password\": \"test123456\",\n  \"mobile\": \"1523456859\",\n  \"gender\": \"male\",\n  \"dob\": \"1990-07-01\",\n  \"address\": \"24-267\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/v1/user/register"
+					},
+					"response": []
+				},
+				{
+					"name": "activate-user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"activationCode\":\"962110\",\n  \"activationToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmF0aW9uQ29kZSI6Ijk2MjExMCIsInVzZXIiOnsidXNlcm5hbWUiOiJ0ZXN0MSIsImVtYWlsIjoieWltYWw3MTYwMEBkYXlwZXkuY29tIiwicGFzc3dvcmQiOiJ0ZXN0MTIzNDU2IiwibW9iaWxlIjoiMTUyMzQ1Njg1OSIsImRvYiI6IjE5OTAtMDctMDEiLCJnZW5kZXIiOiJtYWxlIiwiYWRkcmVzcyI6IjI0LTI2NyJ9LCJpYXQiOjE3MjQ0MDY5NzAsImV4cCI6MTcyNDQwNzI3MH0.LcxQH7vQ-2WpwN9kJQhR5IL4b79qfvy9Z2M4vycFNDo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/v1/user/activate"
+					},
+					"response": []
+				},
+				{
+					"name": "login-user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\":\"yimal71600@daypey.com\",\n   \"password\":\"test123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/v1/user/login"
+					},
+					"response": []
+				},
+				{
+					"name": "logout-user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/v1/user/logout"
+					},
+					"response": []
+				},
+				{
+					"name": "get-profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/v1/user/profile"
+					},
+					"response": []
+				},
+				{
+					"name": "update-profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"test1\",\n  \"dob\": \"1990-07-01\",\n  \"gender\": \"male\",\n  \"address\": \"24-267\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/v1/user/update-profile"
+					},
+					"response": []
+				},
+				{
+					"name": "reset-password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"password\":\"harshking123\",\n  \"confirmPassword\":\"harshking123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/v1/user/password/reset/5656d7bf057f44af2c87b126740735517e4c00cd"
+					},
+					"response": []
+				},
+				{
+					"name": "forget-password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\":\"harshparmar0421@gmail.com\"\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/v1/user/password/forgot"
+					},
+					"response": []
+				}
+			],
+			"description": "# User-API Documentation\n\nThis documentation provides an overview of the available APIs in the application, including request and response formats. The APIs are designed to handle user registration, authentication, password management, and profile updates.\n\n## Base URL\n\n```\nhttp://localhost:5000/api/v1/\n\n ```\n\n### Example:\n\n### 1\\. **Signup API**\n\n**Endpoint:** `/user/register`\n\n**Method:** `POST`\n\n**Description:** Registers a new user and sends an OTP to the provided email for verification.\n\n**Request Body:**\n\n``` json\n   {\n     \"name\": \"John Doe\",\n     \"mobile\": \"1234567890\",\n     \"email\": \"john.doe@example.com\",\n     \"dob\": \"1990-01-01\",\n     \"gender\": \"male\",\n     \"address\": \"123 Main St, City, Country\",\n     \"password\": \"password123\"\n   }\n\n ```\n\n**Response:**\n\n``` json\n  {\n  \"success\": true,\n  \"message\": \"Please check your email to activate your account. Activation code is sent to your email harshparmar0421@gmail.com\",\n  \"activationToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmF0aW9uQ29kZSI6IjUzNDk1NSIsInVzZXIiOnsidXNlcm5hbWUiOiJoYXJzaCIsImVtYWlsIjoiaGFyc2hwYXJtYXIwNDIxQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiaGFyc2gxMjM0NSIsIm1vYmlsZSI6Ijk1MzcxMjgxODkiLCJkb2IiOiIxOTkwLTA3LTAxIiwiZ2VuZGVyIjoibWFsZSIsImFkZHJlc3MiOiIyNC0yNjcifSwiaWF0IjoxNzI0Mzg5MzgwLCJleHAiOjE3MjQzODk2ODB9.l6AsppgeUC8i6nNi3EWZBx2hl6Nf_bijrR0l4nb7u3c\"\n}\n\n ```\n\n### 2\\. **Verify OTP API**\n\n**Endpoint:** `/user/activate`\n\n**Method:** `POST`\n\n**Description:** Verifies the OTP sent to the user's email during signup.\n\n**Request Body:**\n\n``` json\n {\n  \"activationCode\":\"142016\",\n  \"activationToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmF0aW9uQ29kZSI6IjE0MjAxNiIsInVzZXIiOnsidXNlcm5hbWUiOiJoYXJzaCIsImVtYWlsIjoiaGFyc2hwYXJtYXIwNDIxQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiaGFyc2gxMjM0NSIsIm1vYmlsZSI6Ijk1MzcxMjgxODkiLCJkb2IiOiIxOTkwLTA3LTAxIiwiZ2VuZGVyIjoibWFsZSIsImFkZHJlc3MiOiIyNC0yNjcifSwiaWF0IjoxNzI0MzQwMjExLCJleHAiOjE3MjQzNDA1MTF9.YkTqk6SsosELHzOiytF3Baiow78Ft5gdagn41Ly757I\"\n}\n\n ```\n\n**Response:**\n\n``` json\n   {\n     \"message\": \"User registered successfully.\",\n   }\n\n ```\n\n### 3\\. **Login API**\n\n**Endpoint:** `/user/login`\n\n**Method:** `POST`\n\n**Description:** Authenticates a user and returns a JWT token.\n\n**Request Body:**\n\n``` json\n   {\n     \"email\": \"john.doe@example.com\",\n     \"password\": \"password123\"\n   }\n\n ```\n\n**Response:**  \nOn a successful login, the server will respond with two cookies:  \n**access_token**: Used for authentication in subsequent requests.  \n**refresh_token**: Used to refresh the access_token when it expires.\n\n**Response:**\n\n``` json\n   {\n     \"message\": \"Login successful\",\n     \"user\": {\n       \"name\": \"John Doe\",\n       \"email\": \"john.doe@example.com\",\n       \"mobile\": \"1234567890\",\n       \"dob\": \"1990-01-01\",\n       \"gender\": \"male\",\n       \"address\": \"123 Main St, City, Country\"\n     }\n   }\n\n ```\n\n### 4\\. **Forgot Password API**\n\n**Endpoint:** `/user/forgot-password`\n\n**Method:** `POST`\n\n**Description:** Sends a password reset link to the user's registered email.\n\n**Request Body:**\n\n``` json\n   {\n     \"email\": \"john.doe@example.com\"\n   }\n\n ```\n\n**Response:**\n\n``` json\n   {\n     \"message\": \"Password reset link sent to your email.\"\n   }\n\n ```\n\n### 5\\. **Reset Password API**\n\n**Endpoint:** `/user/reset-password`\n\n**Method:** `POST`\n\n**Description:** Resets the user's password using the token from the reset link.\n\n**Request Body:**\n\n``` json\n   {\n     \"token\": \"<reset-token>\",\n     \"newPassword\": \"newPassword123\"\n   }\n\n ```\n\n**Response:**\n\n``` json\n   {\n     \"message\": \"Password reset successful.\"\n   }\n\n ```\n\n### 6\\. **Profile Update API**\n\n**Endpoint:** `/user/update-profile`\n\n**Method:** `PUT`\n\n**Description:** Updates the user's profile information.\n\n**Request Body:**\n\n``` json\n   {\n     \"name\": \"John Doe\",\n     \"mobile\": \"0987654321\",\n     \"dob\": \"1990-01-01\",\n     \"gender\": \"male\",\n     \"address\": \"456 Another St, New City, Country\"\n   }\n\n ```\n\n**Response:**\n\n``` json\n   {\n     \"message\": \"Profile updated successfully.\",\n     \"user\": {\n       \"name\": \"John Doe\",\n       \"email\": \"john.doe@example.com\",\n       \"mobile\": \"0987654321\",\n       \"dob\": \"1990-01-01\",\n       \"gender\": \"male\",\n       \"address\": \"456 Another St, New City, Country\"\n     }\n   }\n\n ```\n\n## Error Handling\n\nAll errors are returned in the following format:\n\n**Error Response:**\n\n``` json\n{\n  \"error\": \"Error message here\"\n}\n\n ```"
+		}
+	]
+}

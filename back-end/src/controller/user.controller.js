@@ -119,7 +119,8 @@ export const login = catchAsyncError(async (req, res, next) => {
         if (!isPasswordMatched) {
             return next(new ErrorHandler('Invalid email or password', 400));
         }
-
+         // Remove the password from the user object
+        user.password = undefined;
         sendToken(user, 200, res);
 
     } catch (error) {
@@ -196,7 +197,8 @@ export const forgotPassword = catchAsyncError(async (req, res, next) => {
   
     
     // Create reset password URL
-    const resetUrl = `${req.protocol}://${req.get('host')}/forget-password/${resetToken}`;
+    //console.log(req.get("referer"), "resetToken");
+    const resetUrl = `${req.get("referer")}reset-password/${resetToken}`;
   //  console.log(resetUrl, "user");
     const data = { username: user.username, resetUrl: resetUrl };
     try {

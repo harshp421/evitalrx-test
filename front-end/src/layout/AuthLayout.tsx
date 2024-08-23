@@ -1,9 +1,9 @@
-import React from 'react'
+
 import { Outlet } from 'react-router-dom'
 
-type Props = {}
 
-const AuthLayout = (props: Props) => {
+
+const AuthLayout = () => {
   return (
     <div className="flex flex-col md:flex-row h-screen">
     <div className="flex-1 flex items-center justify-center p-4">

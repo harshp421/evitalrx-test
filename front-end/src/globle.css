@@ -67,3 +67,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+.error
+{
+    color: red;
+    
+}

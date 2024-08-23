@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,13 +16,16 @@ import { Link, useNavigate } from "react-router-dom"
 import { userService } from "@/services/api/user"
 import { useState } from "react"
 import { AxiosError } from "axios"
+import { useToast } from "@/components/ui/use-toast"
+import { useUser } from "@/context/userContext"
+
 
 const formSchema = z.object({
     email: z
     .string()
     .min(5, { message: "This field has to be filled." })
     .email("This is not a valid email."),
-    password: z.string().min(6, { message: "Password must be at least 8 characters." }),
+    password: z.string().min(6, { message: "Password must be at least 6 characters." }),
 
 })
 
@@ -31,6 +33,8 @@ const Login=()=> {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { toast } = useToast()
+ const {setUser}=useUser();
    // 1. Define your form.
    const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -47,7 +51,13 @@ const Login=()=> {
     try {
       const response = await userService.login(values);
       // Handle successful login (e.g., navigate to dashboard, save token, etc.)
-      console.log("Login successful:", response.data);
+      toast({
+        title: response.data.message || "Login successful",
+      })
+      //console.log("Login successful:", response.data);
+      // setUser(response.data.user);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      setUser(response.data.user);
       navigate("/dashboard");
     } catch (err:AxiosError | any) {
       if (err.response && err.response.data && err.response.data.message) {
@@ -71,7 +81,7 @@ const Login=()=> {
     <Form {...form}>
         <h6>EvitalRx</h6>
         <h1 className='text-2xl font-bold '>Login to your Account</h1>
-        <h5 className="text-sm">Start your website in seconds. Dont't have an account? <Link to={'/register'} className="text-blue-500">Register here.</Link> </h5>
+        <h5 className="text-sm">Start your website in seconds. Dont't have an account? <Link to={'/register'} className="text-blue-500 underline">Register here.</Link> </h5>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
         <FormField
           control={form.control}
@@ -93,7 +103,7 @@ const Login=()=> {
             <FormItem>
               <FormLabel>password</FormLabel>
               <FormControl>
-                <Input placeholder="******" {...field} />
+                <Input placeholder="******" type="password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -102,7 +112,7 @@ const Login=()=> {
         <p className="text-sm text-gray-600">
   Forgot your password? <Link to={'/forgot-password'} className="text-blue-500 underline">Click here to reset it</Link>.
 </p>
-{error && <p>{error}</p>}
+{error && <p className="error">{error}</p>}
         <Button type="submit" disabled={loading}>
         {loading ? "Submitting..." : "Submit"}
         </Button>

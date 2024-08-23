@@ -19,12 +19,13 @@ import { userService } from "@/services/api/user";
 import { useState } from "react";
 import { AxiosError } from "axios";
 import Cookies from "js-cookie";
+import { toast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   username: z.string().min(1, { message: "Username is required." }),
   email: z.string().min(5, { message: "This field has to be filled." }).email("This is not a valid email."),
-  password: z.string().min(6, { message: "Password must be at least 8 characters." }),
-  mobile: z.string().max(10, { message: "Mobile number must be 10 digits." }),
+  password: z.string().min(6, { message: "Password must be at least 6 characters." }),
+  mobile: z.string().min(10,{message:"Mobile number must be 10 digits."}). max(10, { message: "Mobile number must be 10 digits." }),
   gender: z.enum(["male", "female", "other"], { required_error: "Gender is required." }),
   dob: z.string().min(1, { message: "Date of birth is required." }),
   address: z.string().min(1, { message: "Address is required." }),
@@ -53,6 +54,9 @@ const Register = () => {
       setError(null);
       // Call the register API.
      const response= await userService.register(values);
+     toast({
+      title: response.data.message || "Mail Sent Successfully to your email",
+    })
       // Redirect to the login page.
       const activationToken = response.data.activationToken;
       Cookies.set('activation_Token', activationToken, { expires: 1/288, sameSite: 'Lax' }); // expires in 5 minutes
@@ -79,7 +83,7 @@ const Register = () => {
       <h6>EvitalRx</h6>
       <h1 className="text-2xl font-bold">Create your Account</h1>
       <h5 className="text-sm">
-        Start your website in seconds. Already have an account? <Link to={'/login'} className="text-blue-500">Login here.</Link>
+        Start your website in seconds. Already have an account? <Link to={'/login'} className="text-blue-500 underline">Login here.</Link>
       </h5>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
         {/* Username and Mobile Number */}
@@ -104,7 +108,7 @@ const Register = () => {
               <FormItem>
                 <FormLabel>Mobile Number</FormLabel>
                 <FormControl>
-                  <Input placeholder="9537128189" {...field} />
+                  <Input placeholder="564******7" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -190,7 +194,7 @@ const Register = () => {
             </FormItem>
           )}
         />
-           {error && <p>{error}</p>}
+           {error && <p className="error">{error}</p>}
         <Button type="submit" disabled={loading}>
         {loading ? "Submitting..." : "Submit"}
         </Button>

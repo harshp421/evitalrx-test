@@ -10,6 +10,7 @@ import Dashboard from '../modules/dashboard/Dashboard';
 import Profile from '../modules/Profile/Profile';
 import AuthLayout from '@/layout/AuthLayout';
 import ResetPassword from '@/modules/auth/ResetPassword';
+import DashBoardLayout from '@/layout/DashBoardLayout';
 
 
 
@@ -30,8 +31,10 @@ const AppRoutes: React.FC = () => {
 
       {/* Private Routes */}
       <Route element={<PrivateRoute />}>
+        <Route element={<DashBoardLayout/>}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
+        </Route>
       </Route>
 
       {/* Default Route */}
