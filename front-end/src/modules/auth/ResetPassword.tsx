@@ -58,7 +58,7 @@ const ResetPassword = () => {
       setLoading(true);
       setError(null);
        const response = await userService.resetPassword(data,token);
-      console.log("Reset Password:", response);
+      //console.log("Reset Password:", response);
       toast({
         title: response.data.message || "Password Reset Successfully",
       })

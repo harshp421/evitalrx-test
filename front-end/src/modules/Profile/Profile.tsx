@@ -89,7 +89,7 @@ const Profile = () => {
   }
 
   const onSubmit = async (data: z.infer<typeof profileSchema>) => {
-    console.log(data);
+    //console.log(data);
     // Handle form submission
    // await updateUser(data);
    const userData={

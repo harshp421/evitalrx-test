@@ -46,7 +46,7 @@ const ForgetPassword = () => {
       toast({
         title: response.data.message || "Mail for reset password  Sent Successfully to your email",
       })
-      console.log("Forget Password:", response.data);
+      //console.log("Forget Password:", response.data);
       navigate("/login");
     }
     catch (err:AxiosError | any) {
@@ -64,7 +64,7 @@ const ForgetPassword = () => {
   // Define a submit handler
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Handle form submission, typically by sending a reset password request to the server
-    console.log(values);
+   // console.log(values);
     handleForgetPassword(values);
   }
 

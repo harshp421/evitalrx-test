@@ -72,7 +72,7 @@ const Login=()=> {
   };
    // 2. Define a submit handler.
    function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+  //  console.log(values)
     handleLogin(values)
   }
 

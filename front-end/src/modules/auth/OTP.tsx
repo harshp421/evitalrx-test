@@ -49,7 +49,7 @@ const OTP=()=> {
     setError(null);
     try {
       const response = await userService.verifyOtp(values);
-      console.log("OTP verified:", response.data);
+      //console.log("OTP verified:", response.data);
       toast({
         title: response.data.message || "OTP verified",
       })

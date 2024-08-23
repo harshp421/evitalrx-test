@@ -74,7 +74,7 @@ const Register = () => {
   // Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
-    console.log(values);
+   // console.log(values);
     handleRegister(values);
   }
 

@@ -122,7 +122,7 @@ export const login = catchAsyncError(async (req, res, next) => {
             return next(new ErrorHandler('Invalid email or password', 400));
         }
          // Remove the password from the user object
-        user.password = undefined;
+        delete user.password;
         sendToken(user, 200, res);
 
     } catch (error) {
