@@ -132,7 +132,7 @@ Thank you for the opportunity to work on this assignment.
 
 ## Author
 
-- **Harsh** - [LinkedIn](https://www.linkedin.com/in/harsh) | [GitHub](https://github.com/harsh)
+- **Harsh** - [LinkedIn](https://www.linkedin.com/in/harsh-parmar-717834232/) | [GitHub](https://github.com/harshp421)
 
 ---
 
